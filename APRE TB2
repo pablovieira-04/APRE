@@ -1,0 +1,39 @@
+// Algoritmo Bubble Sort para ordenar a lista de contatos pelo nome.
+void bubbleSort(ListaContatos* lista) {
+    // Se a lista estiver vazia, não há nada para ordenar.
+    if (lista->cabeca == NULL) return;
+
+    int trocou; // Variável para indicar se houve troca de elementos.
+    do {
+        trocou = 0; // Inicializa a variável trocou como 0 para verificar se houve trocas nesta iteração.
+        Contato* atual = lista->cabeca; // Começa a iterar a partir do primeiro contato na lista.
+        
+        // Percorre a lista até o penúltimo contato.
+        while (atual->proximo != NULL) {
+            // Compara o nome do contato atual com o nome do próximo contato.
+            if (strcmp(atual->nome, atual->proximo->nome) > 0) {
+                // Se o nome atual for maior que o próximo (isto é, estão fora de ordem), troca os contatos.
+                
+                // Variáveis temporárias para armazenar os nomes e telefones durante a troca.
+                char tempNome[100];
+                char tempTelefone[15];
+
+                // Armazena os dados do contato atual em variáveis temporárias.
+                strcpy(tempNome, atual->nome);
+                strcpy(tempTelefone, atual->telefone);
+
+                // Copia os dados do próximo contato para o atual.
+                strcpy(atual->nome, atual->proximo->nome);
+                strcpy(atual->telefone, atual->proximo->telefone);
+
+                // Copia os dados armazenados na variável temporária para o próximo contato.
+                strcpy(atual->proximo->nome, tempNome);
+                strcpy(atual->proximo->telefone, tempTelefone);
+
+                trocou = 1; // Indica que houve uma troca.
+            }
+            // Avança para o próximo contato na lista.
+            atual = atual->proximo;
+        }
+    } while (trocou); // Repete o processo enquanto houver trocas.
+}
